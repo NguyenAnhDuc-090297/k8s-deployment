@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-server
+  template:
+    metadata:
+      labels:
+        app: service-server
+    spec:
+      containers:
+      - name: service-server
+        image: service:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8083
+        env:
+        - name: AUTH_SERVER_ADDRESS
+          value: "auth-service-nodeport"
+        - name: AUTH_SERVER_PORT
+          value: "8081"
