@@ -20,6 +20,12 @@ spec:
         - containerPort: 8083
         env:
         - name: AUTH_SERVER_ADDRESS
-          value: "auth-service-nodeport"
+          valueFrom:
+            configMapKeyRef:
+              name: service-configmap
+              key: AUTH_SERVER_ADDRESS
         - name: AUTH_SERVER_PORT
-          value: "8081"
+          valueFrom:
+            secretKeyRef:
+              name: service-secret
+              key: AUTH_SERVER_PORT
